@@ -26,6 +26,14 @@ app.get('/', async function (request, response) {
   response.render('index.liquid', { cityList })
 })
 
+app.get('/quick-scan', async function (request, response) {
+    const quickScanApiResponse = await fetch(`${ctcEndpoint}`)
+    const quickScanApiResponseJSON = await quickScanApiResponse.json()
+    const quickScan = quickScanApiResponseJSON.data[0]
+
+  response.render('quick-scan.liquid', { quickScan })
+})
+
 app.get('/:city', async function (request, response) {
     const params = new URLSearchParams()
     params.set('filter[city][_eq]', request.params.city)
@@ -47,8 +55,6 @@ app.get('/:city/:address', async function (request, response) {
     const addressDetails = addressDetailsApiResponseJSON.data
 
   response.render('address.liquid', { addressDetails })
-})
-
 })
 
 app.use((req, res) => {
