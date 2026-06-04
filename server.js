@@ -35,6 +35,66 @@ app.get('/quick-scan', async function (request, response) {
     const quickScan = quickScanApiResponseJSON.data[0]
 
   response.render('quick-scan.liquid', { quickScan })
+  response.render('quick-scan.liquid', { })
+})
+
+app.post('/quick-scan', upload.single('picture'), async function (request, response) {
+
+    // Step 1: Upload file naar Directus
+
+    let pictureId = null
+
+    // Als er een foto is meegestuurd, voer dit dan uit
+    if (request.file) {
+        // Haal de data van de file/foto op uit het formulier in de HTML
+        const file = request.file
+
+        // Maak een nieuwe FormData object om de file data te versturen in een multipart/form-data request
+        const formData = new FormData()
+        const blob = new Blob([file.buffer], { type: file.mimetype })
+        formData.append("picture", blob, file.originalname)
+
+        // Verstuur een POST request naar de Directus API om de file te uploaden
+        const uploadResponse = await fetch('https://fdnd-agency.directus.app/files', {
+            method: "POST",
+            body: formData,
+        })
+
+        // Parse de JSON response van Directus
+        const uploadResponseData = await uploadResponse.json()
+
+        // Zet de geparsde JSON repsonse om in een variabele
+        pictureId = uploadResponseData.data.id
+    }
+
+    // Step 2: Maak een nieuw object met data in Directus
+    const apiResponse  = await fetch(`${ctcEndpoint}`, {
+        method: 'POST',
+
+        body: JSON.stringify({
+            picture: pictureId,
+            time: request.body.time,
+            city: request.body.city,
+            address: request.body.address,
+            status: request.body.status,
+            traffic_sign: request.body.traffic_sign,
+            comment: request.body.comment,
+            monitoring_suitability: request.body.monitoring_suitability,
+            smartzone_suitability: request.body.smartzone_suitability,
+            length: request.body.length,
+        }),
+
+        headers: {
+          'Content-Type': 'application/json;charset=UTF-8'
+        }
+    });
+
+    // Als het maken van een nieuw data object heeft gefaald. Stuur een error bericht
+    if (!apiResponse.ok) {
+        return response.send("Error")
+    }
+
+  return response.send("Toegevoegd!")
 })
 
 app.get('/:city', async function (request, response) {
