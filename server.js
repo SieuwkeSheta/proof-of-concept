@@ -11,9 +11,19 @@ app.engine('liquid', engine.express())
 
 app.set('views', './views')
 
-app.get('/', async function (request, response) {
+const baseURL = 'https://fdnd-agency.directus.app/items'
+const ctcEndpoint = `${baseURL}/ctc_smartzone`
 
-  response.render('index.liquid', { })
+app.get('/', async function (request, response) {
+    const params = new URLSearchParams()
+    params.set('fields', 'city')
+    params.set('groupBy[]', 'city')
+
+    const cityListApiResponse = await fetch(`${ctcEndpoint}?${params.toString()}`)
+    const cityListApiResponseJSON = await cityListApiResponse.json()
+    const cityList = cityListApiResponseJSON.data
+
+  response.render('index.liquid', { cityList })
 })
 
 
