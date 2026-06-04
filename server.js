@@ -37,6 +37,18 @@ app.get('/:city', async function (request, response) {
   response.render('city.liquid', { cityDetails })
 })
 
+app.get('/:city/:address', async function (request, response) {
+    const params = new URLSearchParams()
+    params.set('filter[city][_eq]', request.params.city)
+    params.set('filter[address][_eq]', request.params.address)
+
+    const addressDetailsApiResponse = await fetch(`${ctcEndpoint}?${params.toString()}`)
+    const addressDetailsApiResponseJSON = await addressDetailsApiResponse.json()
+    const addressDetails = addressDetailsApiResponseJSON.data
+    
+  response.render('city.liquid', { addressDetails })
+})
+
 app.use((req, res) => {
   res.status(404).render('404.liquid')
 })
