@@ -1,0 +1,102 @@
+{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
+<style>
+  form {
+    display: grid;
+    gap: 0.5em;
+  }
+
+  button {
+    width: fit-content;
+  }
+
+  label:has(:required) > span::after {
+    content: '*';
+    color: red;
+  }
+</style>
+{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\      {% endcomment %}
+
+<a href="/">Ga terug naar de homepagina</a>
+
+<section>
+  <h1>Quick scan</h1>
+
+  <form action="/quick-scan" method="post" enctype="multipart/form-data">
+    <label>
+      <span>Upload foto</span>
+      <input type="file" name="picture" required>
+    </label>
+
+    <label>
+      <span>Tijd</span>
+      <input type="time" name="time" required>
+    </label>
+
+    <label>
+      <span>Stad</span>
+      <select name="city" required>
+        <option value="">--Kies een optie--</option>
+        <option value="Amsterdam'">Amsterdam</option>
+        <option value="Breda">Breda</option>
+        <option value="Haarlem">Haarlem</option>
+        <option value="'S Hertogenbosch">'S Hertogenbosch</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Locatie</span>
+      <input type="text" name="address" required autocapitalize="on">
+    </label>
+
+    <label>
+      <span>Status</span>
+      <select name="status" required>
+        <option value="">--Kies een optie--</option>
+        <option value="vrij">Vrij</option>
+        <option value="bezet">Bezet</option>
+        <option value="overtreding">Overtreding</option>
+        <option value="bestaat niet">Bestaat niet</option>
+      </select>
+    </label>
+
+    <label>
+      Bord
+      <textarea name="traffic_sign"></textarea>
+    </label>
+
+    <label>
+      Observaties
+      <textarea name="comment"></textarea>
+    </label>
+
+    <label>
+      <span>Geschikbaarheid Monitoring</span>
+      <select name="monitoring_suitability" required>
+        <option value="">--Kies een optie--</option>
+        <option value="zeer geschikt">Zeer geschikt</option>
+        <option value="geschikt">Geschikt</option>
+        <option value="neutraal">Neutraal</option>
+        <option value="ongeschikt">Ongeschikt</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Geschikbaarheid Smart zone</span>
+      <select name="smartzone_suitability" required>
+        <option value="">--Kies een optie--</option>
+        <option value="zeer geschikt">Zeer geschikt</option>
+        <option value="geschikt">Geschikt</option>
+        <option value="neutraal">Neutraal</option>
+        <option value="ongeschikt">Ongeschikt</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Lengte <span class="">(in cm)</span></span>
+      <input type="text" name="length" placeholder="210" required>
+    </label>
+
+    <button type="submit">Toevoegen</button>
+
+  </form>
+</section>
