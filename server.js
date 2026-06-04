@@ -45,8 +45,10 @@ app.get('/:city/:address', async function (request, response) {
     const addressDetailsApiResponse = await fetch(`${ctcEndpoint}?${params.toString()}`)
     const addressDetailsApiResponseJSON = await addressDetailsApiResponse.json()
     const addressDetails = addressDetailsApiResponseJSON.data
-    
-  response.render('city.liquid', { addressDetails })
+
+  response.render('address.liquid', { addressDetails })
+})
+
 })
 
 app.use((req, res) => {
