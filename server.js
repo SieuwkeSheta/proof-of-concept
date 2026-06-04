@@ -1,7 +1,10 @@
 import express, { response } from 'express'
 import { Liquid } from 'liquidjs'
+import multer from 'multer'
 
 const app = express()
+
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static('public'))
