@@ -20,12 +20,8 @@
     <h2>{{ city.address }}</h2>
     <p>Tijd: {{ city.time }}</p>
     <p>Status: {{ city.status }}</p>
-    {% if city.traffic_sign != '' %}
-        <p>Bord: {{ city.traffic_sign }}</p>
-    {% endif %}
-    {% if city.comment != '' %}
-        <p>Observaties: {{ city.comment }}</p>
-    {% endif %}
+    <p>Bord: {{ city.traffic_sign }}</p>
+    <p>Observaties: {{ city.comment }}</p>
     <p>Geschikbaarheid monitoring: {{ city.monitoring_suitability }}</p>
     <p>Geschikbaarheid Smart Zone: {{ city.smartzone_suitability }}</p>
     <p>Lengte: {{ city.length }} cm</p>
