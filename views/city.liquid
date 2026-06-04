@@ -1,0 +1,31 @@
+{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
+<style>
+    section {
+        border: 1px solid black;
+        margin-bottom: 0.5em;
+        padding: 0.5em;
+        width: fit-content;
+    }
+</style>
+{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
+ 
+<a href="/">Ga terug naar de homepagina</a>
+<a href="/quick-scan">Maak een Quick Scan</a>
+
+{% for city in cityDetails %}
+    <section style="">
+    <img src="https://fdnd-agency.directus.app/assets/{{ city.picture }}?width=300&format=webp" alt="" loading="lazy" width="300" height="auto">
+    <h2>{{ city.address }}</h2>
+    <p>Tijd: {{ city.time }}</p>
+    <p>Status: {{ city.status }}</p>
+    {% if city.traffic_sign != '' %}
+        <p>Bord: {{ city.traffic_sign }}</p>
+    {% endif %}
+    {% if city.comment != '' %}
+        <p>Observaties: {{ city.comment }}</p>
+    {% endif %}
+    <p>Geschikbaarheid monitoring: {{ city.monitoring_suitability }}</p>
+    <p>Geschikbaarheid Smart Zone: {{ city.smartzone_suitability }}</p>
+    <p>Lengte: {{ city.length }} cm</p>
+    </section>
+{% endfor %}
