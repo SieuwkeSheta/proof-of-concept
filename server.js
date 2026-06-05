@@ -35,7 +35,6 @@ app.get('/quick-scan', async function (request, response) {
     const quickScan = quickScanApiResponseJSON.data[0]
 
   response.render('quick-scan.liquid', { quickScan })
-  response.render('quick-scan.liquid', { })
 })
 
 app.post('/quick-scan', upload.single('picture'), async function (request, response) {
