@@ -30,11 +30,15 @@ app.get('/', async function (request, response) {
 })
 
 app.get('/quick-scan', async function (request, response) {
-    const quickScanApiResponse = await fetch(`${ctcEndpoint}`)
-    const quickScanApiResponseJSON = await quickScanApiResponse.json()
-    const quickScan = quickScanApiResponseJSON.data[0]
+    const params = new URLSearchParams()
+    params.set('fields', 'city')
+    params.set('groupBy[]', 'city')
 
-  response.render('quick-scan.liquid', { quickScan })
+    const quickScanApiResponse = await fetch(`${ctcEndpoint}?${params.toString()}`)
+    const quickScanApiResponseJSON = await quickScanApiResponse.json()
+    const quickScanCities = quickScanApiResponseJSON.data
+
+  response.render('quick-scan.liquid', { quickScanCities })
 })
 
 app.post('/quick-scan', upload.single('picture'), async function (request, response) {
@@ -93,7 +97,7 @@ app.post('/quick-scan', upload.single('picture'), async function (request, respo
         return response.send("Error")
     }
 
-  return response.send("Toegevoegd!")
+  return response.redirect(303, '/?status=success');
 })
 
 app.get('/:city', async function (request, response) {
