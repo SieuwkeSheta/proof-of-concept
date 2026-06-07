@@ -15,15 +15,15 @@
 <h1>{{ cityDetails[0].city }}</h1>
 
 {% for city in cityDetails %}
-    <section style="">
+  <section style="">
     <img src="https://fdnd-agency.directus.app/assets/{{ city.picture }}?width=300&format=webp" alt="" loading="lazy" width="300" height="auto">
     <h2>{{ city.address }}</h2>
     <p>Tijd: {{ city.time }}</p>
     <p>Status: {{ city.status }}</p>
     <p>Bord: {{ city.traffic_sign }}</p>
     <p>Observaties: {{ city.comment }}</p>
-    <p>Geschikbaarheid monitoring: {{ city.monitoring_suitability }}</p>
-    <p>Geschikbaarheid Smart Zone: {{ city.smartzone_suitability }}</p>
+    <p>Geschiktheid monitoring: {{ city.monitoring_suitability }}</p>
+    <p>Geschiktheid Smart Zone: {{ city.smartzone_suitability }}</p>
     <p>Lengte: {{ city.length }} cm</p>
-    </section>
+  </section>
 {% endfor %}
