@@ -1,8 +1,8 @@
-<a href="/">Ga terug naar de homepagina</a>
+{% render 'partials/head.liquid', title: 'Quick Scan' %}
 
 <section>
   <h1>Quick scan</h1>
-
+  
   <form action="/quick-scan" method="post" enctype="multipart/form-data">
     <p>Maak een Quick Scan in 4 stappen.</p>
 
@@ -22,10 +22,9 @@
         Stad
         <select name="city" required>
           <option value="">-- Kies een stad --</option>
-          <option value="Amsterdam">Amsterdam</option>
-          <option value="Breda">Breda</option>
-          <option value="Haarlem">Haarlem</option>
-          <option value="'s-Hertogenbosch">'s-Hertogenbosch</option>
+          {% for name in quickScanCities %}
+            <option value="{{name.city}}">{{name.city}}</option>
+          {% endfor %}
         </select>
       </label>
 
@@ -110,8 +109,20 @@
           <input type="radio" name="status" value="bestaat-niet">
         </label>
       </fieldset>
+
+      <label>
+        Verkeersbord (optioneel)
+        <textarea name="traffic_sign" autocapitalize="on"></textarea>
+      </label>
+
+      <label>
+        Opmerking (optioneel)
+        <textarea name="comment" autocapitalize="on"></textarea>
+      </label>
     </fieldset>
 
     <button type="submit">Toevoegen</button>
   </form>
 </section>
+
+{% render 'partials/foot.liquid' %}
