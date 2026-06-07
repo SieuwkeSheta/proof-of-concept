@@ -78,6 +78,8 @@ app.post('/quick-scan', upload.single('picture'), async function (request, respo
             picture: pictureId,
             city: request.body.city,
             address: request.body.address,
+            long: request.body.long,
+            lat: request.body.lat,
             length: request.body.length,
             time: request.body.time,
             monitoring_suitability: request.body.monitoring_suitability,
