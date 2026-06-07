@@ -1,0 +1,51 @@
+/* Algemeen */
+* {
+    /* Zorgt ervoor dat de padding en border bij de breedte horen */
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Custom fonts */
+@font-face {
+    font-family: 'DMSans-Regular';
+    src: url('../fonts/DMSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DMSans-Medium';
+    src: url('../fonts/DMSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'DMSans-Bold';
+    src: url('../fonts/DMSans-Bold.ttf') format('truetype');
+}
+
+html {
+    font-family: 'DMSans-Regular', Verdana, Geneva, Tahoma, sans-serif;
+
+    /* Scrollen in html element-gaat smooth */
+    @media (prefers-reduced-motion: no-preference) {
+        scroll-behavior: smooth;
+    }
+}
+
+/* Custom properties */
+:root {
+    /* Colors */
+    --primary-color: #9400FF;
+    --medium-light-color: #525252;
+    --lightest-color: #fff;
+    --valid-icon-color: #00A80B;
+    --invalid-icon-color: #FF2A34;
+
+    /* Font sizes */
+    --font-size-l: 20px;
+    --font-size-m: 18px;
+    --font-size-s: 16;
+    
+    /* Heights & sizes */
+    --border-radius: 10px;
+}
+
+
