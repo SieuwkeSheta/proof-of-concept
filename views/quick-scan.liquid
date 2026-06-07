@@ -2,7 +2,7 @@
 
 <section>
   <h1>Quick scan</h1>
-  
+
   <form action="/quick-scan" method="post" enctype="multipart/form-data">
     <p>Maak een Quick Scan in 4 stappen.</p>
 
@@ -23,7 +23,7 @@
         <select name="city" required>
           <option value="">-- Kies een stad --</option>
           {% for name in quickScanCities %}
-            <option value="{{name.city}}">{{name.city}}</option>
+            <option value="{{name.city}}">{{ name.city }}</option>
           {% endfor %}
         </select>
       </label>
@@ -31,6 +31,16 @@
       <label>
         Adres
         <input type="text" name="address" required autocapitalize="on">
+      </label>
+
+      <label>
+        Long
+        <input type="text" name="long" placeholder="52.6783" required>
+      </label>
+
+      <label>
+        Lat
+        <input type="text" name="lat" placeholder="4.9234" required>
       </label>
 
       <label>
