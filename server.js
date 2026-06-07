@@ -76,15 +76,15 @@ app.post('/quick-scan', upload.single('picture'), async function (request, respo
 
         body: JSON.stringify({
             picture: pictureId,
-            time: request.body.time,
             city: request.body.city,
             address: request.body.address,
+            length: request.body.length,
+            time: request.body.time,
+            monitoring_suitability: request.body.monitoring_suitability,
+            smartzone_suitability: request.body.smartzone_suitability,
             status: request.body.status,
             traffic_sign: request.body.traffic_sign,
             comment: request.body.comment,
-            monitoring_suitability: request.body.monitoring_suitability,
-            smartzone_suitability: request.body.smartzone_suitability,
-            length: request.body.length,
         }),
 
         headers: {
