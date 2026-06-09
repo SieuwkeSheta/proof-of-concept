@@ -170,9 +170,23 @@ html {
             }
         }
 
+        /* Selecteer stad dropdown */
+        select[name="city"] {
+            background-color: var(--lightest-color);
+            border: none;
+            border-radius: none;
+            border-bottom: 1px solid black;
+            font-size: var(--font-size-m);
+            font-family: 'DMSans-Regular', Verdana, Geneva, Tahoma, sans-serif;
+
+            &:focus,
+            &:active {
+                outline: none;
+                border-bottom: 2px solid var(--primary-color);
+            }
+        }
 
         /* /// Valid + Reload styling states van de fieldsets & labels  \\\ */
-
 
         fieldset:has(input) .legend-checkmark {
             display: flex;
@@ -201,7 +215,7 @@ html {
             mask-size: contain;
             mask-repeat: no-repeat;
         }
-        
+
         label:has(input[type="file"]:valid):active::before {
             background-color: var(--lightest-color);
         }
