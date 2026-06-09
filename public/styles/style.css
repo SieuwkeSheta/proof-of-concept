@@ -51,3 +51,159 @@ html {
 }
 
 
+.quick-scan {
+    margin: 1em;
+    border: 4px solid var(--primary-color);
+    border-radius: var(--border-radius);
+
+    h1 {
+        background-color: #9400FF;
+        color: var(--lightest-color);
+        text-align: center;
+        font-size: var(--font-size-l);
+        padding: 0.5em;
+    }
+
+    form {
+        padding: 1.5em;
+
+        h2 {
+            font-size: var(--font-size-xl);
+        }
+
+        fieldset {
+            padding: 0;
+            border: none;
+            margin-block: 2.5em;
+
+            legend {
+                padding: 0;
+
+                h3 {
+                    font-size: var(--font-size-m);
+                    color: var(--primary-color);
+                    font-family: 'DMSans-Bold', Arial, Helvetica, sans-serif;
+                }
+            }
+
+            fieldset {
+                margin-block: 0.5em;
+
+                legend {
+                    font-size: var(--font-size-xs);
+                    color: var(--medium-light-color);
+                }
+            }
+        }
+
+        /* Upload foto fieldset */
+        fieldset:nth-of-type(1) {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+
+            img {
+                grid-column: 2;
+                justify-self: end;
+                opacity: 0;
+            }
+        }
+
+        /* Alle labels op die van de foto/file en de radiobuttons na */
+        label:not(:has(input[type="radio"]),
+            :has(input[type="file"])) {
+            display: grid;
+            gap: 0.1em;
+            padding-block: 0.5em;
+            font-size: var(--font-size-s);
+            color: var(--medium-light-color);
+
+            input:not(input[type="file"]),
+            textarea {
+                font-size: var(--font-size-m);
+                color: black;
+                border-bottom: 1px solid black;
+                border-top: none;
+                border-inline: none;
+                padding-left: 0.1em;
+
+                &:focus {
+                    outline: 2px solid transparent;
+                    border-bottom: 2px solid var(--primary-color);
+                    margin-top: -1px;
+
+                }
+            }
+        }
+
+        /* Foto/file element */
+        label:has(input[type="file"]) {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+            cursor: pointer;
+            border: 2px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            padding: 0.5em 1em;
+
+            &:has(:focus-visible) {
+                outline: 2px solid var(--primary-color);
+            }
+
+            &:active {
+                background: var(--primary-color);
+                color: var(--lightest-color);
+            }
+
+            /* Maak de input visueel ontzichtbaar, maar laat het focusbaar blijven */
+            input {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                padding: 0;
+                margin: -1px;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                clip-path: inset(50%);
+                white-space: nowrap;
+                border: 0;
+            }
+        }
+
+
+        /* /// Valid + Reload styling states van de fieldsets & labels  \\\ */
+
+
+        fieldset:has(input) .legend-checkmark {
+            display: flex;
+            gap: 0.5em;
+        }
+
+        fieldset:has(input[type="radio"]:checked) .legend-checkmark::after,
+        fieldset:has(input:not([type="radio"]):required:valid) .legend-checkmark::after {
+            content: "✔";
+            color: var(--valid-icon-color);
+        }
+
+        fieldset:has(input:not([type="radio"]):required:invalid) .legend-checkmark::after {
+            content: "";
+        }
+
+        /* Reload icon voor foto/file input als er een foto is geupload */
+        label:has(input[type="file"]:valid)::before {
+            content: "";
+            display: inline-block;
+            flex: 0 0 1em;
+            width: 1em;
+            height: 1em;
+            background-color: black;
+            mask-image: url("../assets/redo-icon.svg");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+        }
+        
+        label:has(input[type="file"]:valid):active::before {
+            background-color: var(--lightest-color);
+        }
+    }
+}
