@@ -1,22 +1,22 @@
 {% render 'partials/head.liquid', title: 'Quick Scan' %}
 
-<section>
-  <h1>Quick scan</h1>
+<section class="quick-scan">
+  <h1>Quick Scan</h1>
 
   <form action="/quick-scan" method="post" enctype="multipart/form-data">
-    <p>Maak een Quick Scan in 4 stappen.</p>
+    <h2>Maak een Quick Scan in 4 stappen.</h2>
 
     <fieldset>
-      <legend>1 - Upload foto</legend>
+      <legend class="legend-checkmark"><h3>1 - Upload foto</h3></legend>
       <label>
         Bestand kiezen
-        <input type="file" name="picture" required>
+        <input id="upload-picture" type="file" name="picture" required>
       </label>
-      <img src="" alt="" width="60" height="40">
+      <img id="display-image" src="" alt="" width="60" height="40">
     </fieldset>
 
     <fieldset>
-      <legend>2 - Locatie & Tijd</legend>
+      <legend class="legend-checkmark"><h3>2 - Locatie & Tijd</h3></legend>
 
       <label>
         Stad
@@ -35,12 +35,12 @@
 
       <label>
         Long
-        <input type="text" name="long" placeholder="52.6783" required>
+        <input type="number" step="any" name="long" placeholder="52.6783" required>
       </label>
 
       <label>
         Lat
-        <input type="text" name="lat" placeholder="4.9234" required>
+        <input type="number" step="any" name="lat" placeholder="4.9234" required>
       </label>
 
       <label>
@@ -55,7 +55,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>3 - Monitoring & Smart zone</legend>
+      <legend class="legend-checkmark"><h3>3 - Monitoring & Smart zone</h3></legend>
 
       <fieldset>
         <legend>Geschiktheid Monitoring</legend>
@@ -95,7 +95,7 @@
     </fieldset>
 
     <fieldset>
-      <legend>4 - Observaties</legend>
+      <legend class="legend-checkmark"><h3>4 - Observaties</h3></legend>
 
       <fieldset>
         <legend>Status</legend>
@@ -116,7 +116,7 @@
 
         <label>
           Bestaat niet
-          <input type="radio" name="status" value="bestaat-niet">
+          <input type="radio" name="status" value="bestaat niet">
         </label>
       </fieldset>
 
