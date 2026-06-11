@@ -1,5 +1,13 @@
 {% render 'partials/head.liquid', title: 'Quick Scan' %}
 
+{% if status == 'error' %}
+  <div class="status-success-or-error">
+    <p>Oeps... Er ging iets mis, probeer het later opnieuw!
+      {% comment %} <a href="/">Ga terug naar de home-pagina</a> {% endcomment %}
+    </p>
+  </div>
+{% endif %}
+
 <section class="quick-scan">
   <h1>Quick Scan</h1>
 
@@ -10,7 +18,7 @@
       <legend class="legend-checkmark"><h3>1 - Upload foto</h3></legend>
       <label>
         Bestand kiezen
-        <input id="upload-picture" type="file" name="picture" required>
+        <input id="upload-picture" type="file" name="picture" accept="image/*" required>
       </label>
       <img id="display-image" src="" alt="" width="60" height="40">
     </fieldset>
@@ -61,17 +69,17 @@
         <legend>Geschiktheid Monitoring</legend>
         <label>
           Geschikt
-          <input type="radio" name="monitoring_suitability" value="geschikt">
+          <input type="radio" name="monitoring_suitability" value="geschikt" required>
         </label>
 
         <label>
           Neutraal
-          <input type="radio" name="monitoring_suitability" value="neutraal">
+          <input type="radio" name="monitoring_suitability" value="neutraal" required>
         </label>
 
         <label>
           Ongeschikt
-          <input type="radio" name="monitoring_suitability" value="ongeschikt">
+          <input type="radio" name="monitoring_suitability" value="ongeschikt" required>
         </label>
       </fieldset>
 
@@ -79,17 +87,17 @@
         <legend>Geschiktheid Smart zone</legend>
         <label>
           Geschikt
-          <input type="radio" name="smartzone_suitability" value="geschikt">
+          <input type="radio" name="smartzone_suitability" value="geschikt" required>
         </label>
 
         <label>
           Neutraal
-          <input type="radio" name="smartzone_suitability" value="neutraal">
+          <input type="radio" name="smartzone_suitability" value="neutraal" required>
         </label>
 
         <label>
           Ongeschikt
-          <input type="radio" name="smartzone_suitability" value="ongeschikt">
+          <input type="radio" name="smartzone_suitability" value="ongeschikt" required>
         </label>
       </fieldset>
     </fieldset>
@@ -101,7 +109,7 @@
         <legend>Status</legend>
         <label>
           Vrij
-          <input type="radio" name="status" value="vrij">
+          <input type="radio" name="status" value="vrij" required>
         </label>
 
         <label>
@@ -122,12 +130,12 @@
 
       <label>
         Verkeersbord (optioneel)
-        <textarea name="traffic_sign" autocapitalize="on"></textarea>
+        <textarea name="traffic_sign" autocapitalize="on" rows="1"></textarea>
       </label>
 
       <label>
         Opmerking (optioneel)
-        <textarea name="comment" autocapitalize="on"></textarea>
+        <textarea name="comment" autocapitalize="on" rows="1"></textarea>
       </label>
     </fieldset>
 

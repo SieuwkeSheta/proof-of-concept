@@ -38,7 +38,9 @@ app.get('/quick-scan', async function (request, response) {
     const quickScanApiResponseJSON = await quickScanApiResponse.json()
     const quickScanCities = quickScanApiResponseJSON.data
 
-  response.render('quick-scan.liquid', { quickScanCities })
+    const status = request.query.status
+
+  response.render('quick-scan.liquid', { quickScanCities, status })
 })
 
 app.post('/quick-scan', upload.single('picture'), async function (request, response) {
@@ -96,10 +98,10 @@ app.post('/quick-scan', upload.single('picture'), async function (request, respo
 
     // Als het maken van een nieuw data object heeft gefaald. Stuur een error bericht
     if (!apiResponse.ok) {
-        return response.send("Error")
+      return response.redirect(303, '/quick-scan?status=error')
     }
 
-  return response.redirect(303, `/${request.body.city}?status=success`);
+  return response.redirect(303, `/${request.body.city}?status=success`)
 })
 
 app.get('/:city', async function (request, response) {
@@ -110,7 +112,9 @@ app.get('/:city', async function (request, response) {
     const cityDetailsApiResponseJSON = await cityDetailsApiResponse.json()
     const cityDetails = cityDetailsApiResponseJSON.data
 
-  response.render('city.liquid', { cityDetails })
+    const status = request.query.status
+
+  response.render('city.liquid', { cityDetails, status })
 })
 
 app.get('/:city/:address', async function (request, response) {

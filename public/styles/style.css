@@ -254,6 +254,9 @@ button[type="submit"] {
         scale: 1;
     }
 }
+main {
+    position: relative;
+}
 
 main:has(.quick-scan) {
     display: flex;
@@ -420,5 +423,37 @@ main:has(.quick-scan) {
         label:has(input[type="file"]:valid):active::before {
             background-color: var(--lightest-color);
         }
+    }
+}
+
+
+.status-success-or-error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: var(--primary-color);
+    color: var(--lightest-color);
+    padding: 1em;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-m);
+
+    animation: --fade-popup 6s ease-out forwards;
+}
+
+@keyframes --fade-popup {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    50% {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    100% {
+        opacity: 0;
+        visibility: hidden;
     }
 }
