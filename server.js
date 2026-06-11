@@ -20,6 +20,7 @@ const ctcEndpoint = `${baseURL}/ctc_smartzone`
 app.get('/', async function (request, response) {
     const params = new URLSearchParams()
     params.set('fields', 'city')
+    params.set('filter[city][_neq]', null)
     params.set('groupBy[]', 'city')
 
     const cityListApiResponse = await fetch(`${ctcEndpoint}?${params.toString()}`)
