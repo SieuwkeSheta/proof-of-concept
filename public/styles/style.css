@@ -121,7 +121,7 @@ select {
 }
 
 /* Enhancements voor de dropdowns */
-@supports selector(selectedcontent) {
+@supports selector(::picker(select)) {
 
     select,
     ::picker(select) {
@@ -140,7 +140,7 @@ select {
         &::picker-icon {
             content: '❯';
             rotate: 90deg;
-            color: #525252;
+            color: var(--medium-light-color);
         }
     }
 
@@ -254,9 +254,6 @@ button[type="submit"] {
         scale: 1;
     }
 }
-main {
-    position: relative;
-}
 
 main:has(.quick-scan) {
     display: flex;
@@ -324,6 +321,7 @@ main:has(.quick-scan) {
                 opacity: 0;
                 width: auto;
                 height: clamp(3em, 15vw, 8em);
+
                 @media (min-width: 400px) {
                     position: absolute;
                 }
@@ -426,34 +424,45 @@ main:has(.quick-scan) {
     }
 }
 
-
+/* ============   Succes en error states voor de Quick Scan   ============ */
 .status-success-or-error {
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 1;
     background: var(--primary-color);
     color: var(--lightest-color);
     padding: 1em;
     width: 100%;
     text-align: center;
     font-size: var(--font-size-m);
-
-    animation: --fade-popup 6s ease-out forwards;
+    animation: --fade-popup 5s ease-out forwards;
 }
 
 @keyframes --fade-popup {
-    0% {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    50% {
-        opacity: 1;
-        visibility: visible;
-    }
-
+    0% { opacity: 1; }
+    50% { opacity: 1; }
     100% {
         opacity: 0;
         visibility: hidden;
     }
 }
+
+/* ============   Loading state voor de Quick Scan   ============ */
+.loading-quick-scan {
+    position: relative;
+
+    &::after {
+        content: "...";
+        position: absolute;
+        overflow: hidden;
+        animation: --loading-quick-scan 1.5s infinite;
+        animation-timing-function: steps(4);
+    }
+}
+
+@keyframes --loading-quick-scan {
+    0% { max-width: 0; }
+    100% { max-width: 1.1em; }
+}
+
