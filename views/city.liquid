@@ -9,8 +9,13 @@
 </style>
 {% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
 
-<a href="/">Ga terug naar de homepagina</a>
-<a href="/quick-scan">Maak een Quick Scan</a>
+{% render 'partials/head.liquid', title: cityDetails[0].city %}
+
+{% if status == 'success' %}
+  <div class="status-success-or-error">
+    <p>Quick Scan toegevoegd!</p>
+  </div>
+{% endif %}
 
 <h1>{{ cityDetails[0].city }}</h1>
 
@@ -19,11 +24,12 @@
     <img src="https://fdnd-agency.directus.app/assets/{{ city.picture }}?width=300&format=webp" alt="" loading="lazy" width="300" height="auto">
     <h2>{{ city.address }}</h2>
     <p>Tijd: {{ city.time }}</p>
+    <a href="https://www.google.com/maps/place/{{ city.address }},{{ city.city }}" target="_blank">Google maps</a>
     <p>Status: {{ city.status }}</p>
     <p>Bord: {{ city.traffic_sign }}</p>
     <p>Observaties: {{ city.comment }}</p>
     <p>Geschiktheid monitoring: {{ city.monitoring_suitability }}</p>
-    <p>Geschiktheid Smart Zone: {{ city.smartzone_suitability }}</p>
+    <p>Geschiktheid Smart zone: {{ city.smartzone_suitability }}</p>
     <p>Lengte: {{ city.length }} cm</p>
   </section>
 {% endfor %}
