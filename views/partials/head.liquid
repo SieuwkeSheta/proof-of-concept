@@ -8,6 +8,18 @@
     <script defer src="/scripts/client.js" type="module"></script>
 </head>
 <body>
+
+    <header>
+        {% if quickScan %}
+            <a href="/">Ga terug naar de homepagina</a>
+
+            {% elsif home %}
+                
+            {% else %}
+            <a href="/">Ga terug naar de homepagina</a>
+            <a href="/quick-scan">Maak een Quick Scan</a>
+        {% endif %}
+    </header>
+    <main>
+        
     
-</body>
-</html>
