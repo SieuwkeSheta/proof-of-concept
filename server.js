@@ -99,7 +99,7 @@ app.post('/quick-scan', upload.single('picture'), async function (request, respo
         return response.send("Error")
     }
 
-  return response.redirect(303, '/?status=success');
+  return response.redirect(303, `/${request.body.city}?status=success`);
 })
 
 app.get('/:city', async function (request, response) {
