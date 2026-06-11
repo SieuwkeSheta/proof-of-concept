@@ -1,4 +1,4 @@
-{% render 'partials/head.liquid', title: 'Quick Scan' %}
+{% render 'partials/head.liquid', title: 'Quick Scan', quickScan = true %}
 
 {% if status == 'error' %}
   <div class="status-success-or-error">
@@ -139,7 +139,7 @@
       </label>
     </fieldset>
 
-    <button type="submit">Toevoegen</button>
+    <button type="submit" class="quick-scan-submit-button">Toevoegen</button>
   </form>
 </section>
 
