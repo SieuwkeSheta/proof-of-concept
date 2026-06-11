@@ -3,6 +3,7 @@
     /* Zorgt ervoor dat de padding en border bij de breedte horen */
     box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
 /* Custom fonts */
@@ -48,10 +49,221 @@ html {
 
     /* Heights & sizes */
     --border-radius: 10px;
+    --padding-button: 0.5em 1em;
 }
 
+/* ============   Algemene styling van formulier elementen   ============ */
+/* Foto/file knop */
+label:has(input[type="file"]) {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    cursor: pointer;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    padding: var(--padding-button);
+    margin-top: 0.5em;
 
+    @media (any-pointer:fine) {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: var(--lightest-color);
+        }
+    }
+
+    &:has(:focus-visible) {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    &:active {
+        background: var(--primary-color);
+        color: var(--lightest-color);
+        animation: --button-jump 0.5s ease-out;
+    }
+
+    /* Maak de input visueel ontzichtbaar, maar laat het focusbaar blijven */
+    input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+}
+
+/* Dropdowns */
+select {
+    background-color: var(--lightest-color);
+    border: none;
+    border-radius: none;
+    border-bottom: 1px solid black;
+    font-size: var(--font-size-m);
+    font-family: 'DMSans-Regular', Verdana, Geneva, Tahoma, sans-serif;
+    cursor: pointer;
+
+    @media (forced-colors:none) {
+        border: none;
+        box-shadow: 0 0.08em black;
+    }
+
+    &:focus,
+    &:active {
+        outline: none;
+        border-bottom: 1px dashed var(--primary-color);
+
+        @media (forced-colors:none) {
+            border: none;
+            box-shadow: 0 0.16em var(--primary-color);
+        }
+    }
+}
+
+/* Enhancements voor de dropdowns */
+@supports selector(selectedcontent) {
+
+    select,
+    ::picker(select) {
+        appearance: base-select;
+    }
+
+    select {
+        border-radius: 0;
+        padding-left: 2px;
+        color: black;
+
+        &:open::picker-icon {
+            rotate: 270deg;
+        }
+
+        &::picker-icon {
+            content: '❯';
+            rotate: 90deg;
+            color: #525252;
+        }
+    }
+
+    ::picker(select) {
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+        border: 1.5px solid black;
+    }
+
+    option {
+        padding: 0.5em;
+
+        &:hover {
+            outline: 3px solid var(--primary-color);
+            outline-offset: -2px;
+            background-color: var(--lightest-color);
+        }
+
+        &:last-of-type:hover {
+            border-radius: 0 0 var(--border-radius) var(--border-radius);
+        }
+
+        &:checked {
+            background-color: var(--primary-color);
+            color: var(--lightest-color);
+        }
+    }
+}
+
+/* Radio buttons */
+label:has(input[type="radio"]) {
+    position: relative;
+    border: 2px solid #9400FF;
+    border-radius: var(--border-radius);
+    padding: var(--padding-button);
+    text-align: center;
+
+    input {
+        position: absolute;
+        opacity: 0;
+    }
+
+    &:active {
+        animation: --button-jump 0.5s ease-out;
+    }
+
+    &:has(input[type="radio"]:checked) {
+        border: 2px dashed var(--primary-color);
+
+        @media (forced-colors: none) {
+            background: var(--primary-color);
+            color: var(--lightest-color);
+        }
+    }
+
+    &:focus-visible {
+        background: var(--primary-color);
+        color: var(--lightest-color);
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    @media (any-pointer:fine) {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: var(--lightest-color);
+        }
+    }
+}
+
+/* Verzend knop*/
+button[type="submit"] {
+    cursor: pointer;
+    width: 100%;
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius);
+    color: var(--lightest-color);
+    padding: var(--padding-button);
+    font-size: var(--font-size-m);
+
+    &:active {
+        animation: --button-jump 0.5s ease-out;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--primary-color);
+        outline-offset: 2px;
+    }
+
+    @media (any-pointer:fine) {
+        &:hover {
+            cursor: pointer;
+            background-color: var(--lightest-color);
+            color: currentColor;
+        }
+    }
+}
+
+/* Knop animatie */
+@keyframes --button-jump {
+    0% {
+        scale: 0.9;
+    }
+
+    50% {
+        scale: 1.1;
+    }
+
+    100% {
+        scale: 1;
+    }
+}
+
+main:has(.quick-scan) {
+    display: flex;
+    justify-content: center;
+}
+
+/* ============   Formulier op quick-scan.liquid   ============ */
 .quick-scan {
+    flex: 1 1 auto;
+    max-width: 40em;
     margin: 1em;
     border: 4px solid var(--primary-color);
     border-radius: var(--border-radius);
@@ -72,12 +284,11 @@ html {
         }
 
         fieldset {
-            padding: 0;
             border: none;
             margin-block: 2.5em;
 
             legend {
-                padding: 0;
+                padding-bottom: 0.5em;
 
                 h3 {
                     font-size: var(--font-size-m);
@@ -97,15 +308,34 @@ html {
         }
 
         /* Upload foto fieldset */
-        fieldset:nth-of-type(1) {
+        fieldset:has(input[type="file"]) {
+            position: relative;
             display: grid;
             grid-template-columns: auto 1fr;
             align-items: center;
+            gap: 0.5em;
 
             img {
                 grid-column: 2;
                 justify-self: end;
                 opacity: 0;
+                width: auto;
+                height: clamp(3em, 15vw, 8em);
+                @media (min-width: 400px) {
+                    position: absolute;
+                }
+            }
+        }
+
+        /* Radio buttons fieldset */
+        fieldset fieldset:has(input[type="radio"]) {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+            justify-content: space-between;
+            gap: 0.5em;
+
+            &:nth-of-type(2) {
+                margin-top: 1.5em;
             }
         }
 
@@ -122,88 +352,53 @@ html {
             textarea {
                 font-size: var(--font-size-m);
                 color: black;
-                border-bottom: 1px solid black;
                 border-top: none;
                 border-inline: none;
                 padding-left: 0.1em;
+                border-bottom: 1px solid black;
+
+                @media (forced-colors:none) {
+                    border: none;
+                    box-shadow: 0 0.08em black;
+                }
 
                 &:focus {
                     outline: 2px solid transparent;
-                    border-bottom: 2px solid var(--primary-color);
-                    margin-top: -1px;
+                    border-bottom: 1px dashed var(--primary-color);
 
+                    @media (forced-colors:none) {
+                        border: none;
+                        box-shadow: 0 0.16em var(--primary-color);
+                    }
                 }
             }
         }
 
-        /* Foto/file element */
-        label:has(input[type="file"]) {
-            display: flex;
-            align-items: center;
-            gap: 0.5em;
-            cursor: pointer;
-            border: 2px solid var(--primary-color);
-            border-radius: var(--border-radius);
-            padding: 0.5em 1em;
-
-            &:has(:focus-visible) {
-                outline: 2px solid var(--primary-color);
-            }
-
-            &:active {
-                background: var(--primary-color);
-                color: var(--lightest-color);
-            }
-
-            /* Maak de input visueel ontzichtbaar, maar laat het focusbaar blijven */
-            input {
-                position: absolute;
-                width: 1px;
-                height: 1px;
-                padding: 0;
-                margin: -1px;
-                overflow: hidden;
-                clip: rect(0, 0, 0, 0);
-                clip-path: inset(50%);
-                white-space: nowrap;
-                border: 0;
-            }
+        textarea {
+            min-height: 1.5lh;
+            resize: vertical;
         }
+    }
+}
 
-        /* Selecteer stad dropdown */
-        select[name="city"] {
-            background-color: var(--lightest-color);
-            border: none;
-            border-radius: none;
-            border-bottom: 1px solid black;
-            font-size: var(--font-size-m);
-            font-family: 'DMSans-Regular', Verdana, Geneva, Tahoma, sans-serif;
+/* ============   Valid + Reload styling states van de fieldsets & labels   ============ */
+.quick-scan form {
+    fieldset:has(input) .legend-checkmark {
+        display: flex;
+        gap: 0.5em;
+    }
 
-            &:focus,
-            &:active {
-                outline: none;
-                border-bottom: 2px solid var(--primary-color);
-            }
-        }
+    &>fieldset:has([required]):valid .legend-checkmark::after {
+        content: "✔";
+        color: var(--valid-icon-color);
+    }
 
-        /* /// Valid + Reload styling states van de fieldsets & labels  \\\ */
+    fieldset:has(input:not([type="radio"]):required:invalid) .legend-checkmark::after {
+        content: "";
+    }
 
-        fieldset:has(input) .legend-checkmark {
-            display: flex;
-            gap: 0.5em;
-        }
-
-        fieldset:has(input[type="radio"]:checked) .legend-checkmark::after,
-        fieldset:has(input:not([type="radio"]):required:valid) .legend-checkmark::after {
-            content: "✔";
-            color: var(--valid-icon-color);
-        }
-
-        fieldset:has(input:not([type="radio"]):required:invalid) .legend-checkmark::after {
-            content: "";
-        }
-
-        /* Reload icon voor foto/file input als er een foto is geupload */
+    /* Reload icon voor foto/file input als er een foto is geupload */
+    @media (forced-colors: none) {
         label:has(input[type="file"]:valid)::before {
             content: "";
             display: inline-block;
@@ -214,6 +409,12 @@ html {
             mask-image: url("../assets/redo-icon.svg");
             mask-size: contain;
             mask-repeat: no-repeat;
+        }
+
+        label:has(input[type="file"]:valid):hover::before {
+            @media (any-pointer:fine) {
+                background-color: var(--lightest-color);
+            }
         }
 
         label:has(input[type="file"]:valid):active::before {
