@@ -264,7 +264,8 @@ main:has(.city-overview) {
     display: grid;
     justify-content: center;
     grid-template-columns: 1fr 1fr;
-    gap: 2em;
+    column-gap: 0.5em;
+    row-gap: 2em;
     padding: 1em;
     max-width: 35em;
     margin: 0 auto;
@@ -276,6 +277,7 @@ main:has(.city-overview) {
 
     .sort-filter {
         justify-self: end;
+        align-self: center;
         border: 2px solid var(--primary-color);
         border-radius: var(--border-radius);
         background: var(--primary-color);
