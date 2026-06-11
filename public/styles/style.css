@@ -260,6 +260,75 @@ main:has(.quick-scan) {
     justify-content: center;
 }
 
+main:has(.city-overview) {
+    display: grid;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em;
+    padding: 1em;
+    max-width: 35em;
+    margin: 0 auto;
+
+    h1 {
+        align-self: center;
+        font-size: var(--font-size-l);
+    }
+
+
+.city-overview {
+    grid-column: -1/1;
+    display: grid;
+    gap: 0.5em;
+    list-style: '';
+
+    a {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-decoration: none;
+        font-size: var(--font-size-l);
+        color: black;
+        padding: 1em 1em;
+        border: 2px solid var(--primary-color);
+        border-radius: var(--border-radius);
+
+        &:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        &:active {
+            background: var(--primary-color);
+            color: var(--lightest-color);
+            animation: --button-jump 0.5s ease-out;
+
+            svg {
+                color: var(--lightest-color);
+            }
+        }
+
+        @media (any-pointer:fine) {
+            &:hover {
+                background: var(--primary-color);
+                color: #fff;
+
+                svg {
+                    color: #fff;
+                }
+            }
+        }
+
+
+
+        svg {
+            height: 1em;
+            color: var(--primary-color);
+        }
+    }
+}
+
+
+
 /* ============   Formulier op quick-scan.liquid   ============ */
 .quick-scan {
     flex: 1 1 auto;
