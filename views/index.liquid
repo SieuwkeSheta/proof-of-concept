@@ -2,7 +2,13 @@
 
 <h1>Steden overzicht</h1>
 
-<ul>
+{% if sortCity == 'descending' %} 
+    <a href="/" class="sort-filter">A-Z sorteren</a>
+{% else %}
+    <a href="/?sort=descending" class="sort-filter">Z-A sorteren</a>
+{% endif %}
+
+<ul class="city-overview">
     {% for city in cityList %}
         <li>
             <h2>
