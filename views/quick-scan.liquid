@@ -43,12 +43,12 @@
 
       <label>
         Long
-        <input type="number" step="any" name="long" placeholder="52.6783" required>
+        <input type="number" step="any" name="long" min="-180" max="180" placeholder="52.6783" required>
       </label>
 
       <label>
         Lat
-        <input type="number" step="any" name="lat" placeholder="4.9234" required>
+        <input type="number" step="any" name="lat" min="-90" max="90" placeholder="4.9234" required>
       </label>
 
       <label>
@@ -143,4 +143,4 @@
   </form>
 </section>
 
-{% render 'partials/foot.liquid' %}
+{% render 'partials/foot.liquid', quickScan = true %}
