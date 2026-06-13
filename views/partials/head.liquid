@@ -13,6 +13,35 @@
         <a href="/">
             <img src="../assets/logo-zwart.png" alt="Logo coding the curbs" width="100" height="auto">
         </a>
+
+        <button popovertarget="menu"class="open-button" hidden>
+            <svg width="46" height="31" viewBox="0 0 46 31" xmlns="http://www.w3.org/2000/svg">
+                <title>Open menu</title>
+                <path d="M42.8125 2.8125H2.8125M42.8125 15.3125H2.8125M42.8125 27.8125H2.8125" stroke="currentColor" stroke-width="5.625" stroke-linecap="round"/>
+            </svg>
+        </button>
+
+        <nav popover id="menu">
+            <a href="/" class="popover-visible" hidden><img src="../assets/logo-zwart.png" alt="Logo coding the curbs" width="100" height="auto"></a>
+            <button class="popover-visible" popovertarget="menu" hidden>
+                <svg width="26" height="25" viewBox="0 0 26 25" xmlns="http://www.w3.org/2000/svg">
+                    <title>Sluit menu</title>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M0.54394 0.523019C1.26921 -0.17434 2.44508 -0.17434 3.17035 0.523019L13 9.97466L22.8297 0.523019C23.5549 -0.17434 24.7309 -0.17434 25.4561 0.523019C26.1813 1.2204 26.1813 2.35104 25.4561 3.04842L15.6264 12.5L25.4561 21.9516C26.1813 22.649 26.1813 23.7797 25.4561 24.477C24.7309 25.1743 23.5549 25.1743 22.8297 24.477L13 15.0254L3.17035 24.477C2.44508 25.1743 1.26921 25.1743 0.54394 24.477C-0.181313 23.7797 -0.181313 22.649 0.54394 21.9516L10.3736 12.5L0.54394 3.04842C-0.181313 2.35104 -0.181313 1.2204 0.54394 0.523019Z" fill=""/>
+                </svg>
+            </button>
+            <ul>
+                {% for city in cityListNav %}
+                <li>
+                    <a href="/{{ city.city }}">
+                        {{ city.city }}
+                        <svg width="auto" height="15" viewBox="0 0 17 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.3501 1.3501L14.8501 14.5966L1.3501 27.8431" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+                        </svg>
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </nav>
     </header>
     <main>
         
