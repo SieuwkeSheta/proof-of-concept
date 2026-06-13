@@ -258,6 +258,13 @@ button[type="submit"] {
     }
 }
 
+header {
+    padding: 1em;
+
+    img {
+        width: 7em;
+    }
+}
 main:has(.quick-scan) {
     display: flex;
     justify-content: center;
