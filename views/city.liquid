@@ -9,7 +9,7 @@
 </style>
 {% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
 
-{% render 'partials/head.liquid', title: cityDetails[0].city %}
+{% render 'partials/head.liquid', title: cityDetails[0].city, cityListNav: cityListNav %}
 
 {% if status == 'success' %}
   <div class="status-success-or-error">
