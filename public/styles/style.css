@@ -63,6 +63,7 @@ label:has(input[type="file"]) {
     border-radius: var(--border-radius);
     padding: var(--padding-button);
     margin-top: 0.5em;
+    transition: 0.1s;
 
     @media (any-pointer:fine) {
         &:hover {
@@ -176,6 +177,7 @@ label:has(input[type="radio"]) {
     border-radius: var(--border-radius);
     padding: var(--padding-button);
     text-align: center;
+    transition: 0.1s;
 
     input {
         position: absolute;
@@ -221,6 +223,7 @@ button[type="submit"] {
     color: var(--lightest-color);
     padding: var(--padding-button);
     font-size: var(--font-size-m);
+    transition: 0.1s;
 
     &:active {
         animation: --button-jump 0.5s ease-out;
@@ -266,7 +269,7 @@ main:has(.city-overview) {
     grid-template-columns: 1fr 1fr;
     column-gap: 0.5em;
     row-gap: 2em;
-    padding: 1em;
+    padding: 0 1em;
     max-width: 35em;
     margin: 0 auto;
 
