@@ -17,6 +17,11 @@ app.set('views', './views')
 const baseURL = 'https://fdnd-agency.directus.app/items'
 const ctcEndpoint = `${baseURL}/ctc_smartzone`
 
+// Voor menu navigatie
+const cityListNavApiResponse = await fetch(`${ctcEndpoint}?fields=city&filter[city][_neq]=null&groupBy[]=city`)
+const cityListNavApiResponseJSON = await cityListNavApiResponse.json()
+const cityListNav = cityListNavApiResponseJSON.data
+
 app.get('/', async function (request, response) {
   const params = new URLSearchParams()
   params.set('fields', 'city')
@@ -39,7 +44,7 @@ app.get('/', async function (request, response) {
   const cityListApiResponseJSON = await cityListApiResponse.json()
   const cityList = cityListApiResponseJSON.data
 
-  response.render('index.liquid', { cityList, sortCity: sort })
+  response.render('index.liquid', { cityList, sortCity: sort, cityListNav })
 })
 
 app.get('/quick-scan', async function (request, response) {
@@ -53,7 +58,7 @@ app.get('/quick-scan', async function (request, response) {
 
   const status = request.query.status
 
-  response.render('quick-scan.liquid', { quickScanCities, status })
+  response.render('quick-scan.liquid', { quickScanCities, status, cityListNav })
 })
 
 app.post('/quick-scan', upload.single('picture'), async function (request, response) {
@@ -127,7 +132,7 @@ app.get('/:city', async function (request, response) {
 
   const status = request.query.status
 
-  response.render('city.liquid', { cityDetails, status })
+  response.render('city.liquid', { cityDetails, status, cityListNav })
 })
 
 app.get('/:city/:address', async function (request, response) {
@@ -139,7 +144,7 @@ app.get('/:city/:address', async function (request, response) {
   const addressDetailsApiResponseJSON = await addressDetailsApiResponse.json()
   const addressDetails = addressDetailsApiResponseJSON.data
 
-  response.render('address.liquid', { addressDetails })
+  response.render('address.liquid', { addressDetails, cityListNav })
 })
 
 // app.post("/delete", async (req, res) => {
