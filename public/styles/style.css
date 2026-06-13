@@ -330,8 +330,8 @@ main:has(.quick-scan) {
 
 main:has(.city-overview) {
     display: grid;
-    justify-content: center;
-    grid-template-columns: 1fr 1fr;
+    /* justify-content: center; */
+    grid-template-columns: auto auto;
     column-gap: 0.5em;
     row-gap: 2em;
     padding: 0 1em;
