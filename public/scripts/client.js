@@ -1,10 +1,8 @@
 // 1. variables
-// Zoeken elementen op in de DOM
 const imageInputSelector = document.getElementById("upload-picture")
 const imagePreview = document.getElementById("display-image")
 
 // 2.logic
-// Als er een element is met 'imageInputSelector'
 if (imageInputSelector) {
   // Wacht tot input veranderd
   imageInputSelector.addEventListener('change', handleImageUpload)
@@ -34,25 +32,19 @@ function handleImageUpload(event) {
 }
 
 // 1. variables
-// Zoeken elementen op in de DOM
 const quickScanForm = document.querySelector(".quick-scan form")
 const quickScanFormButton = document.querySelector(".quick-scan-submit-button")
 
+// 2.logic
 if (quickScanForm) {
+  // 3. function declarations
   quickScanForm.addEventListener("submit", async function (event) {
     event.preventDefault()
-
     quickScanFormButton.classList.add("loading-quick-scan")
     quickScanFormButton.textContent = "laden"
 
     setTimeout(function () {
-      quickScanFormButton.classList.remove("loading-quick-scan")
-      quickScanFormButton.textContent = "Toegevoegd! ✔"
-    }, 2500)
-
-    setTimeout(function() {
       quickScanForm.submit()
-    }, 3500)
-
+    }, 2500)
   })
 }
