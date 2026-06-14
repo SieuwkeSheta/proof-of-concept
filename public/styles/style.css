@@ -28,7 +28,13 @@ html {
     /* Scrollen in html element-gaat smooth */
     @media (prefers-reduced-motion: no-preference) {
         scroll-behavior: smooth;
+
+        @view-transition {
+            navigation: auto;
+        }
     }
+
+
 }
 
 /* Custom properties */
@@ -261,7 +267,7 @@ button[type="submit"] {
 header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: start;
     padding: 1em;
 
     img {
@@ -276,19 +282,32 @@ header {
     ul {
         display: grid;
         list-style: '';
-        row-gap: 0.5em;
+        row-gap: 1em;
 
         a {
             display: inline-flex;
             justify-content: space-between;
             align-items: center;
-
+            width: 100%;
             text-decoration: none;
             font-size: var(--font-size-l);
             color: var(--lightest-color);
 
             &:hover {
                 text-decoration: 2px solid underline;
+            }
+
+            &:focus-visible {
+                outline: 2px solid var(--lightest-color);
+                outline-offset: 2px;
+            }
+
+            svg {
+                display: block;
+                width: 1em;
+                height: 1em;
+                flex-shrink: 0;
+                color: var(--lightest-color);
             }
         }
     }
@@ -304,7 +323,7 @@ header {
 
     .open-button {
         display: block;
-        padding: 0.8em;
+        padding: 0.5em;
         background: var(--primary-color);
         border: 2px solid var(--primary-color);
         border-radius: var(--border-radius);
@@ -340,6 +359,7 @@ header {
             display: block;
             width: 2em;
             height: 2em;
+            flex-shrink: 0;
             color: var(--lightest-color);
         }
     }
@@ -356,20 +376,31 @@ header {
         width: 100dvw;
         height: 100dvh;
         border: none;
+        transition: opacity 0.3s ease-out;
+
+        @starting-style {
+            & { opacity: 0; }
+        }
 
         img {
             filter: invert(1);
+            vertical-align: middle;
         }
 
         .popover-visible {
             display: block;
             height: fit-content;
             width: fit-content;
+
+            &:focus-visible {
+                outline: 2px solid var(--lightest-color);
+                outline-offset: 2px;
+            }
         }
 
         button {
             justify-self: end;
-            padding: 0.8em;
+            padding: 0.5em;
             background: var(--lightest-color);
             border: 2px solid var(--lightest-color);
             border-radius: var(--border-radius);
@@ -377,15 +408,24 @@ header {
             transition: 0.2s;
 
             @media (any-pointer: fine) {
-            &:hover {
-                background: var(--primary-color);
+                &:hover {
+                    background: var(--primary-color);
 
-                svg {
-                    fill: var(--lightest-color);
+                    svg {
+                        fill: var(--lightest-color);
+                    }
                 }
             }
-        }
 
+            &:active {
+                background: var(--primary-color);
+                color: var(--lightest-color);
+                animation: --button-jump 0.5s ease-out;
+
+                svg {
+                    color: var(--lightest-color);
+                }
+            }
 
             svg {
                 display: block;
@@ -399,13 +439,6 @@ header {
             grid-column: 1/-1;
             display: grid;
             height: fit-content;
-
-            a {
-                display: inline-flex;
-                justify-content: space-between;
-                align-items: center;
-                width: 100%;
-            }
         }
     }
 }
@@ -458,8 +491,10 @@ footer {
     .back-to-top {
         grid-column: 3;
         justify-self: end;
+        padding: 0.5em;
 
         svg {
+            display: block;
             height: 0.8em;
             width: auto;
         }
@@ -562,10 +597,11 @@ main:has(.city-overview) {
             }
         }
 
-
-
         svg {
+            display: block;
             height: 1em;
+            width: 1em;
+            flex-shrink: 0;
             color: var(--primary-color);
         }
     }
@@ -779,3 +815,7 @@ main:has(.city-overview) {
     100% { max-width: 1.1em; }
 }
 
+    100% {
+        max-width: 1.1em;
+    }
+}
