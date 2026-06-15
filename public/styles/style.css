@@ -203,7 +203,7 @@ label:has(input[type="radio"]) {
         }
     }
 
-    &:focus-visible {
+    &:has(input[type="radio"]:focus-visible) {
         background: var(--primary-color);
         color: var(--lightest-color);
         outline: 2px solid var(--primary-color);
@@ -813,9 +813,4 @@ main:has(.city-overview) {
 @keyframes --loading-quick-scan {
     0% { max-width: 0; }
     100% { max-width: 1.1em; }
-}
-
-    100% {
-        max-width: 1.1em;
-    }
 }
