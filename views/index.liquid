@@ -1,30 +1,121 @@
 {% render 'partials/head.liquid', title: 'Home', home: true, cityListNav: cityListNav %}
 
+{% comment %} Totaal aantal --Monitor-- geschiktheid per status {% endcomment %}
+{% assign filteredMonitoringValid = allData | where: "monitoring_suitability", "geschikt" %}
+{% assign filteredMonitoringNeutral = allData | where: "monitoring_suitability", "neutraal" %}
+{% assign filteredMonitoringInvalid = allData | where: "monitoring_suitability", "ongeschikt" %}
+
+{% comment %} Procentueel aantal voor de status 'geschikt' van --Monitoren-- {% endcomment %}
+{% assign percentageMonitoringValid = filteredMonitoringValid.size | times: 100.0 | divided_by: allData.size | round %}
+
+{% comment %} Totaal aantal --Smart Zones-- geschiktheid per status {% endcomment %}
+{% assign filteredSmartZoneValid = allData | where: "smartzone_suitability", "geschikt" %}
+{% assign filteredSmartZoneNeutral = allData | where: "smartzone_suitability", "neutraal" %}
+{% assign filteredSmartZoneInvalid = allData | where: "smartzone_suitability", "ongeschikt" %}
+
+{% comment %} Procentueel aantal voor de status 'geschikt' van --Smart Zones-- {% endcomment %}
+{% assign percentageSmartZoneValid = filteredSmartZoneValid.size | times: 100.0 | divided_by: allData.size | round %}
+
+{% comment %} Gemiddelde lengte --parkeerplek-- {% endcomment %}
+{% assign avarageLengthInMeters =  avarageLength | divided_by: 100  | round: 1 %}
+
 <h1>Steden overzicht</h1>
 
-{% if sortCity == 'descending' %} 
-    <a href="/" class="sort-filter">A-Z sorteren</a>
+<div class="dashboard-items">
+  <ul>
+    <li>
+      <p>Totaal aantal Quick Scans</p>
+      <p>{{ allData.size }}</p>
+    </li>
+      <li>
+        <p>Geschiktheid Monitoring</p>
+        <p>{{ percentageMonitoringValid  }}%</p>
+      </li>
+    <li>
+      <p>Geschiktheid Smart Zone</p>
+      <p>{{ percentageSmartZoneValid }}%</p>
+    </li>
+    <li>
+      <p>Gemiddelde lengte</p>
+      <p>{{ avarageLengthInMeters }}m</p>
+    </li>
+  </ul>
+
+  <section>
+    <div class="inner-section">
+      <h2>Geschiktheid</h2>
+
+      <fieldset>
+        <legend>Monitoring</legend>
+        <label>
+          Geschikt
+          <meter class="geschikt" value="{{ filteredMonitoringValid.size }}" min="0" max="{{ allData.size }}">{{ filteredMonitoringValid.size }}</meter>
+          {{ filteredMonitoringValid.size }}
+        </label>
+        <label>
+          Neutraal
+          <meter class="neutraal" value="{{ filteredMonitoringNeutral.size }}" min="0" max="{{ allData.size }}">{{ filteredMonitoringNeutral.size }}</meter>
+          {{ filteredMonitoringNeutral.size }}
+        </label>
+        <label>
+          Ongeschikt
+          <meter class="ongeschikt" value="{{ filteredMonitoringInvalid.size }}" min="0" max="{{ allData.size }}">{{ filteredMonitoringInvalid.size }}</meter>
+          {{ filteredMonitoringInvalid.size }}
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <legend>Smart Zone</legend>
+        <label>Geschikt
+          <meter class="geschikt" value="{{ filteredSmartZoneValid.size }}" min="0" max="{{ allData.size }}">{{ filteredSmartZoneValid.size }}</meter>
+          {{ filteredSmartZoneValid.size }}
+        </label>
+        <label>
+          Neutraal
+          <meter class="neutraal" value="{{ filteredSmartZoneNeutral.size }}" min="0" max="{{ allData.size }}">{{ filteredSmartZoneNeutral.size }}</meter>
+          {{ filteredSmartZoneNeutral.size }}
+        </label>
+        <label>
+          Ongeschikt
+          <meter class="ongeschikt" value="{{ filteredSmartZoneInvalid.size }}" min="0" max="{{ allData.size }}">{{ filteredSmartZoneInvalid.size }}</meter>
+          {{ filteredSmartZoneInvalid.size }}
+        </label>
+      </fieldset>
+    </div>
+  </section>
+
+  <label hidden class="show-more-label">
+    <span>Laat meer zien +</span>
+    <span hidden>Laat minder zien -</span>
+    <input type="checkbox" class="show-more-button-input">
+  </label>
+</div>
+
+{% if sortCity == 'descending' %}
+  <a href="/" class="sort-filter">A-Z sorteren</a>
 {% else %}
-    <a href="/?sort=descending" class="sort-filter">Z-A sorteren</a>
+  <a href="/?sort=descending" class="sort-filter">Z-A sorteren</a>
 {% endif %}
 
 <ul class="city-overview">
-    {% for city in cityList %}
-        <li>
-            <h2>
-                <a href="/{{ city.city }}">
-                    {{ city.city }}
-                    <svg width="8" height="15" viewBox="0 0 17 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1.3501 1.3501L14.8501 14.5966L1.3501 27.8431" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
-                    </svg>
-                </a>
-            </h2>
-            {% comment %} <form method="POST" action="/delete">
-                <input type="hidden" name="id" value="{{ city.id }}">
-                <button type="submit">Delete</button>
-            </form> {% endcomment %}
-        </li>
-    {% endfor %}
+  {% for city in cityList %}
+    <li>
+      <h2>
+        <a href="/{{ city.city }}" style="view-transition-name: city-{{ city.city }}">
+          {{ city.city }}
+          <svg width="8" height="15" viewBox="0 0 17 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.3501 1.3501L14.8501 14.5966L1.3501 27.8431" stroke-width="2.7" stroke-linecap="round" stroke-linejoin="round" stroke="currentColor"/>
+          </svg>
+        </a>
+      </h2>
+      {% comment %}
+        <form method="POST" action="/delete">
+            <input type="hidden" name="id" value="{{ city.id }}">
+            <button type="submit">Delete</button>
+        </form>
+      {% endcomment %}
+    </li>
+  {% endfor %}
 </ul>
 
 {% render 'partials/foot.liquid' %}
