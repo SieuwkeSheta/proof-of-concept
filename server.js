@@ -44,7 +44,15 @@ app.get('/', async function (request, response) {
   const cityListApiResponseJSON = await cityListApiResponse.json()
   const cityList = cityListApiResponseJSON.data
 
-  response.render('index.liquid', { cityList, sortCity: sort, cityListNav })
+  const allDataApiResponse = await fetch(`${ctcEndpoint}`)
+  const allDataApiResponseJSON = await allDataApiResponse.json()
+  const allData = allDataApiResponseJSON.data
+
+  const avarageLengthApiResponse = await fetch (`${ctcEndpoint}?fields=length&aggregate[avg]=length`)
+  const avarageLengthApiResponseJSON = await avarageLengthApiResponse.json()
+  const avarageLength = avarageLengthApiResponseJSON.data[0].avg.length
+
+  response.render('index.liquid', { cityList, sortCity: sort, cityListNav, allData, avarageLength })
 })
 
 app.get('/quick-scan', async function (request, response) {
