@@ -45,6 +45,7 @@ html {
     --lightest-color: #fff;
     --valid-icon-color: #00A80B;
     --invalid-icon-color: #FF2A34;
+    --background-color-dashboard-items: #FAF4FF;
 
     /* Font sizes */
     --font-size-xl: 25px;
@@ -379,7 +380,9 @@ header {
         transition: opacity 0.3s ease-out;
 
         @starting-style {
-            & { opacity: 0; }
+            & {
+                opacity: 0;
+            }
         }
 
         img {
@@ -509,22 +512,23 @@ main:has(.quick-scan) {
 
 main:has(.city-overview) {
     display: grid;
-    /* justify-content: center; */
-    grid-template-columns: auto auto;
+    row-gap: 1.5em;
+    /* grid-template-columns: auto auto;
     column-gap: 0.5em;
-    row-gap: 2em;
+    
     padding: 0 1em;
     max-width: 35em;
+    margin: 0 auto; */
+    max-width: 40em;
+    padding: 1em;
     margin: 0 auto;
 
     h1 {
-        align-self: center;
-        font-size: var(--font-size-l);
+        font-size: var(--font-size-xl);
     }
 
     .sort-filter {
-        justify-self: end;
-        align-self: center;
+        display: inline-block;
         border: 2px solid var(--primary-color);
         border-radius: var(--border-radius);
         background: var(--primary-color);
@@ -553,8 +557,162 @@ main:has(.city-overview) {
     }
 }
 
+/* ============   Dashboard data  ============ */
+.dashboard-items {
+    ul {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(7em, 1fr));
+        justify-content: center;
+
+        gap: 0.5em;
+        list-style: '';
+        padding-bottom: 0.5em;
+
+        @media (min-width: 380px) and (max-width: 550px) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        li {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            text-align: center;
+            background: var(--background-color-dashboard-items);
+            padding: var(--padding-button);
+            border: 1.5px solid var(--primary-color);
+            border-radius: var(--border-radius);
+            min-width: 7em;
+            min-height: 7em;
+            box-shadow: .1px .1px 4px grey;
+
+            p:nth-of-type(1) {
+                font-size: var(--font-size-xs);
+            }
+
+            p:nth-of-type(2) {
+                font-size: var(--font-size-xl);
+            }
+        }
+    }
+
+    section {
+        opacity: 0;
+        max-height: 0;
+        overflow: hidden;
+        border: 1.5px solid var(--primary-color);
+        border-radius: var(--border-radius);
+        background: var(--background-color-dashboard-items);
+        width: 100%;
+        box-shadow: .1px .1px 4px grey;
+
+        transition: max-height 300ms ease-out, opacity 200ms ease-out;
+
+        h2 {
+            font-size: var(--font-size-m);
+        }
+
+        legend {
+            font-size: var(--font-size-s);
+            font-family: 'DMSans-Bold', Arial, Helvetica, sans-serif;
+        }
+
+        fieldset {
+            border: none;
+            display: grid;
+        }
+    }
+
+    .inner-section {
+        display: grid;
+        gap: 0.5em;
+        padding: 1em;
+    }
+
+    .show-more-label {
+        display: block;
+        position: relative;
+        cursor: pointer;
+        transition: 0.1s;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        &:has(input[type="checkbox"]:focus-visible) {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        @media (any-pointer:fine) {
+            &:hover span {
+                text-decoration: 2px solid underline var(--primary-color);
+                text-underline-offset: 2px;
+            }
+        }
+    }
+}
+
+main:has(.show-more-button-input:checked) {
+    section {
+        margin-block: 1em;
+        opacity: 1;
+        max-height: 500px;
+    }
+
+    span:nth-of-type(2) {
+        display: inline-flex;
+    }
+
+    span:nth-of-type(1) {
+        display: none;
+    }
+}
+
+/* Styling van het HTML meter element */
+label:has(meter) {
+    display: grid;
+    grid-template-columns: 80px 1fr 35px;
+    align-items: center;
+    gap: 0.5em;
+
+    meter {
+        display: block;
+        border-radius: var(--border-radius);
+        width: 100%;
+        height: 14px;
+        background: rgba(128, 128, 128, 0.151);
+    }
+}
+
+.geschikt::-moz-meter-bar {
+    background: rgb(0, 196, 0);
+}
+
+.geschikt::-webkit-meter-optimum-value {
+    background: rgb(0, 196, 0);
+}
+
+.neutraal::-moz-meter-bar {
+    background: orange;
+}
+
+.neutraal::-webkit-meter-optimum-value {
+    background: orange;
+}
+
+.ongeschikt::-moz-meter-bar {
+    background: red;
+}
+
+.ongeschikt::-webkit-meter-optimum-value {
+    background: red;
+}
+
+/* ============   Lijst met steden op de homepagina   ============ */
 .city-overview {
-    grid-column: -1/1;
+    /* grid-column: -1/1; */
     display: grid;
     gap: 0.5em;
     list-style: '';
@@ -789,8 +947,14 @@ main:has(.city-overview) {
 }
 
 @keyframes --fade-popup {
-    0% { opacity: 1; }
-    50% { opacity: 1; }
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
     100% {
         opacity: 0;
         visibility: hidden;
@@ -811,6 +975,11 @@ main:has(.city-overview) {
 }
 
 @keyframes --loading-quick-scan {
-    0% { max-width: 0; }
-    100% { max-width: 1.1em; }
+    0% {
+        max-width: 0;
+    }
+
+    100% {
+        max-width: 1.1em;
+    }
 }
