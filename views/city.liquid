@@ -1,14 +1,3 @@
-{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
-<style>
-    section {
-        border: 1px solid black;
-        margin-bottom: 0.5em;
-        padding: 0.5em;
-        width: fit-content;
-    }
-</style>
-{% comment %} ///////  Tijdelijk voor de code review  \\\\\\\   {% endcomment %}
-
 {% render 'partials/head.liquid', title: cityDetails[0].city, cityListNav: cityListNav %}
 
 {% if status == 'success' %}
@@ -17,20 +6,53 @@
   </div>
 {% endif %}
 
-<h1>{{ cityDetails[0].city }}</h1>
+<h1 style="view-transition-name: city-{{ cityDetails[0].city }}">{{ cityDetails[0].city }}</h1>
 
 {% for city in cityDetails %}
-  <section style="">
-    <img src="https://fdnd-agency.directus.app/assets/{{ city.picture }}?width=300&format=webp" alt="" loading="lazy" width="300" height="auto">
+  <section class="city-overview-details">
+    {% if city.picture == null %}
+      <img src="../assets/image-placeholder.png" alt="" width="300" height="300">
+    {% else %}
+      <img src="https://fdnd-agency.directus.app/assets/{{ city.picture }}?width=800&format=webp&quality=20" alt="" loading="lazy">
+    {% endif %}
     <h2>{{ city.address }}</h2>
-    <p>Tijd: {{ city.time }}</p>
-    <a href="https://www.google.com/maps/place/{{ city.address }},{{ city.city }}" target="_blank">Google maps</a>
-    <p>Status: {{ city.status }}</p>
-    <p>Bord: {{ city.traffic_sign }}</p>
-    <p>Observaties: {{ city.comment }}</p>
-    <p>Geschiktheid monitoring: {{ city.monitoring_suitability }}</p>
-    <p>Geschiktheid Smart zone: {{ city.smartzone_suitability }}</p>
-    <p>Lengte: {{ city.length }} cm</p>
+    
+    
+    <details>
+      <summary>laat meer zien </summary>
+        <a href="https://www.google.com/maps/place/{{ city.address }},{{ city.city }}" target="_blank">Google maps</a>
+      <dl>
+
+        <dt>Tijd</dt>
+        <dd><time datetime="{{ city.time | slice: 0, 5 }}">{{ city.time | slice: 0, 5 }}</time></dd>
+
+        <dt>Lengte</dt>
+        <dd>{{ city.length | divided_by: 100 | round: 1 }}m</dd>
+
+        <dt>Geschiktheid monitoring</dt>
+        <dd>{{ city.monitoring_suitability }}</dd>
+
+        <dt>Geschiktheid Smart zone</dt>
+        <dd>{{ city.smartzone_suitability }}</dd>
+
+        <dt>Status</dt>
+        <dd>{{ city.status }}</dd>
+
+        <dt>Bord</dt>
+        {% if city.traffic_sign != blank %}
+          <dd>{{ city.traffic_sign }}</dd>
+          {% else %}
+          <dd>Geen verkeersbord bekend</dd>
+        {% endif %}
+        
+        <dt>Observaties</dt>
+        {% if city.comment  != blank %}
+          <dd>{{ city.comment }}</dd>
+          {% else %}
+          <dd>Geen bijzonderheden</dd>
+        {% endif %}
+      </dl>
+    </details>
   </section>
 {% endfor %}
 
