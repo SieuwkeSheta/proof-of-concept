@@ -799,6 +799,73 @@ label:has(meter) {
     }
 }
 
+main:has(.city-overview-details) {
+    display: grid;
+    gap: 1em;
+    padding: 1em;
+    align-content: start;
+    align-items: start;
+
+    h1 {
+        font-size: var(--font-size-xl);
+    }
+
+    @media (min-width: 600px) {
+        grid-template-columns: 1fr 1fr;
+        grid-auto-rows: min-content;
+
+        h1 {
+            grid-column: 1/-1;
+        }
+    }
+}
+
+.city-overview-details {
+    display: grid;
+    align-items: start;
+    justify-content: center;
+    border: 2px solid var(--primary-color);
+    border-radius: var(--border-radius);
+
+    img {
+        border-radius: 10px 10px 0 0 ;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 3/2;
+        object-fit: cover;
+    }
+
+    details {
+        cursor: pointer;
+        padding-inline: 1em;
+
+        &[open] a {
+            display: inline-block;
+            margin-top: 0.5em;
+
+            &::after {
+                content: ''
+                
+            }
+            
+        }
+    }
+
+    h2 {
+        padding-inline: 0.7em;
+        padding-top: 0.7em;
+    }
+
+    details {
+        padding-bottom: 1em;
+    }
+
+    dt {
+        font-weight: 600;
+        padding-top: 1em;
+    }
+}
+
 
 
 /* ============   Formulier op quick-scan.liquid   ============ */
