@@ -271,9 +271,18 @@ header {
     align-items: start;
     padding: 1em;
 
-    img {
-        width: 7em;
+    a {
+        &:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+            border-radius: var(--border-radius);
+        }
+
+        img {
+            width: 7em;
+        }
     }
+
 
     nav {
         background: var(--primary-color);
@@ -515,12 +524,6 @@ main:has(.quick-scan) {
 main:has(.city-overview) {
     display: grid;
     row-gap: 1.5em;
-    /* grid-template-columns: auto auto;
-    column-gap: 0.5em;
-    
-    padding: 0 1em;
-    max-width: 35em;
-    margin: 0 auto; */
     max-width: 40em;
     padding: 1em;
     margin: 0 auto;
@@ -655,7 +658,8 @@ body {
 
         &:has(input[type="checkbox"]:focus-visible) {
             outline: 2px solid var(--primary-color);
-            outline-offset: 2px;
+            outline-offset: 3px;
+            border-radius: var(--border-radius);
         }
 
         @media (any-pointer:fine) {
@@ -666,12 +670,15 @@ body {
         }
 
         &::after {
-            content: url(../assets/arrow.svg);
+            content: '';
             display: inline-flex;
+            width: 0.8em;
             height: 0.8em;
-            vertical-align: middle;
-            rotate: 90deg;
-            margin-left: 0.2em;
+            transform: translateY(0.05em) rotate(90deg);
+            background-color: black;
+            -webkit-mask: url("../assets/arrow.svg") center / contain no-repeat;
+            mask: url("../assets/arrow.svg") center / contain no-repeat;
+
         }
 
         input {
@@ -691,7 +698,7 @@ main:has(.show-more-button-input:checked) {
 
     .show-more-label {
         &::after {
-            rotate: 270deg;
+            transform: translateY(0em) rotate(270deg);
         }
 
         span:nth-of-type(2) {
@@ -818,6 +825,52 @@ main:has(.city-overview-details) {
             grid-column: 1/-1;
         }
     }
+
+    .back-button {
+        border: 2px solid var(--primary-color);
+        border-radius: var(--border-radius);
+        width: fit-content;
+        padding: var(--padding-button);
+        color: black;
+        text-decoration: none;
+
+        &:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
+        }
+
+        &:active {
+            animation: --button-jump 0.5s ease-out;
+        }
+
+        @media (any-pointer:fine) {
+            &:hover {
+                background-color: var(--primary-color);
+                color: var(--lightest-color);
+
+                &::before {
+                    background-color: var(--lightest-color);
+                }
+            }
+        }
+
+
+        &::before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+
+            width: 0.8em;
+            height: 0.8em;
+            rotate: 180deg;
+            margin-right: 0.5em;
+
+            background-color: black;
+            mask-image: url("../assets/arrow.svg");
+            mask-size: contain;
+            mask-repeat: no-repeat;
+        }
+    }
 }
 
 .city-overview-details {
@@ -828,7 +881,7 @@ main:has(.city-overview-details) {
     border-radius: var(--border-radius);
 
     img {
-        border-radius: 10px 10px 0 0 ;
+        border-radius: 10px 10px 0 0;
         width: 100%;
         height: auto;
         aspect-ratio: 3/2;
@@ -838,26 +891,57 @@ main:has(.city-overview-details) {
     details {
         cursor: pointer;
         padding-inline: 1em;
+        padding-bottom: 1em;
 
         &[open] a {
             display: inline-block;
             margin-top: 0.5em;
 
             &::after {
-                content: ''
-                
+                content: '';
+
             }
-            
+
+        }
+
+        summary {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+
+
+            &:focus-visible {
+                outline: 2px solid var(--primary-color);
+                outline-offset: 3px;
+                border-radius: var(--border-radius);
+            }
+        }
+
+        @supports (selector(summary::marker)) {
+            summary::marker {
+                content: '';
+            }
+
+            summary::after {
+                content: '';
+                display: block;
+                width: 0.8em;
+                height: 0.8em;
+                transform: translateY(0.05em) rotate(90deg);
+                background-color: black;
+                -webkit-mask: url("../assets/arrow.svg") center / contain no-repeat;
+                mask: url("../assets/arrow.svg") center / contain no-repeat;
+            }
+
+            &[open] summary::after {
+                transform: translateY(0em) rotate(270deg);
+            }
         }
     }
 
     h2 {
         padding-inline: 0.7em;
         padding-top: 0.7em;
-    }
-
-    details {
-        padding-bottom: 1em;
     }
 
     dt {

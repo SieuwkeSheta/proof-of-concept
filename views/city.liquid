@@ -2,9 +2,11 @@
 
 {% if status == 'success' %}
   <div class="status-success-or-error">
-    <p>Quick Scan toegevoegd!</p>
+    <p>Quickscan toegevoegd!</p>
   </div>
 {% endif %}
+
+<a href="/" class="back-button">Terug</a>
 
 <h1 style="view-transition-name: city-{{ cityDetails[0].city }}">{{ cityDetails[0].city }}</h1>
 
@@ -19,7 +21,7 @@
     
     
     <details>
-      <summary>laat meer zien </summary>
+      <summary>Laat meer zien </summary>
         <a href="https://www.google.com/maps/place/{{ city.address }},{{ city.city }}" target="_blank">Google maps</a>
       <dl>
 
