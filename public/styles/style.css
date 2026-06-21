@@ -324,7 +324,7 @@ header {
 }
 
 /* Voor de popover in de header */
-@supports selector([popover]) {
+@supports selector(:popover-open) {
 
     /* Om het scrollen uit te zetten als de popover open staat */
     body:has(nav[popover]:popover-open) {
@@ -1140,10 +1140,10 @@ main:has(.city-overview-details) {
         opacity: 1;
     }
 
-    100% {
+    /* 100% {
         opacity: 0;
         visibility: hidden;
-    }
+    } */
 }
 
 /* ============   Loading state voor de Quick Scan   ============ */
