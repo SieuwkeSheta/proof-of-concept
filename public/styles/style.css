@@ -1140,10 +1140,10 @@ main:has(.city-overview-details) {
         opacity: 1;
     }
 
-    /* 100% {
+    100% {
         opacity: 0;
         visibility: hidden;
-    } */
+    }
 }
 
 /* ============   Loading state voor de Quick Scan   ============ */
